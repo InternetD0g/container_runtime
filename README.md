@@ -1,5 +1,5 @@
 
-## Быстрый старт
+# Быстрый старт
 
 ### Предварительные требования
 
@@ -57,11 +57,11 @@ source ~/gateway-env/bin/activate
 uvicorn gateway.main:app --host 0.0.0.0 --port 8080
 
 ## Управление контейнерами
-### Создать контейнер (метка owner проставляется автоматически)
+### Создать контейнер
 api POST /containers '{"image":"docker.io/library/busybox:latest"}'
 
-### Просмотреть контейнеры (user видит только свои, admin — все)
+### Просмотреть контейнеры
 api GET /containers
 
-### Удалить контейнер (с проверкой владельца)
+### Удалить контейнер
 api DELETE /containers/<container_id>
