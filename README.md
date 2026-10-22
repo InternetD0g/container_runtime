@@ -8,7 +8,6 @@
 
 ### Шаг 1: Настройка ВМ 2 (Runtime + Gateway)
 
-```bash
 # Установка containerd и зависимостей
 sudo apt update && sudo apt install -y containerd runc python3-pip python3-venv curl
 
