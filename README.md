@@ -65,3 +65,7 @@ api GET /containers
 
 ### Удалить контейнер
 api DELETE /containers/<container_id>
+
+### CLI Helper (api-helper.sh)
+Нужен для упрощения работы с API, благодаря ему и работают простые команды указанные выше
+(Скрипт api_helper.sh необходимо добавить в конец файла ~/.bashrc и выполнить source ~/.bashrc).
