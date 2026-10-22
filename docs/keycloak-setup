@@ -1,0 +1,46 @@
+# what lays here is mostly an example
+#your credentials here
+ 
+export KEYCLOAK_ADMIN=admin
+export KEYCLOAK_ADMIN_PASSWORD=admin123
+bin/kc.sh start-dev --http-port=8080
+
+#from different terminal 
+bin/kcadm.sh config credentials --server http://localhost:8080 --realm master --user admin --password admin123
+bin/kcadm.sh update realms/master -s sslRequired=NONE
+
+bin/kcadm.sh create realms -s realm=containerd-auth -s enabled=true -s sslRequired=NONE
+bin/kcadm.sh create roles -r containerd-auth -s name=user
+bin/kcadm.sh create roles -r containerd-auth -s name=admin
+
+bin/kcadm.sh create clients -r containerd-auth \
+  -s clientId=containerd-gateway \
+  -s enabled=true \
+  -s publicClient=false \
+  -s directAccessGrantsEnabled=true \
+  -s standardFlowEnabled=false \
+  -s secret=MyNewGatewaySecret2026
+
+bin/kcadm.sh create users -r containerd-auth \
+  -s username=superuser \
+  -s enabled=true \
+  -s email=superuser@example.com \
+  -s firstName=Super \
+  -s lastName=User
+
+bin/kcadm.sh create users -r containerd-auth \
+  -s username=admin-user \
+  -s enabled=true \
+  -s email=admin-user@example.com \
+  -s firstName=Admin \
+  -s lastName=User
+bin/kcadm.sh set-password -r containerd-auth --username superuser --new-password super123
+bin/kcadm.sh set-password -r containerd-auth --username admin-user --new-password admin123
+
+#by the end of this check you should see a token in console, mostly for visualisation
+curl -s -X POST http://192.168.56.10:8080/realms/containerd-auth/protocol/openid-connect/token \
+  -d "grant_type=password" \
+  -d "client_id=containerd-gateway" \
+  -d "client_secret=MyNewGatewaySecret2026" \
+  -d "username=superuser" \
+  -d "password=super123" | python3 -m json.tool
