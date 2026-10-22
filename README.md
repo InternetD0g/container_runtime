@@ -4,7 +4,7 @@
 ### Предварительные требования
 
 1. Две VM с Ubuntu 22.04+ в одной сети (в примерах 192.168.56.0/24), рабочий пользователь на них в примерах будет указан как thomas
-2. Настроенный Keycloak на ВМ 1 (см. [docs/keycloak-setup.md](docs/keycloak-setup.md))
+2. Настроенный Keycloak на ВМ 1 (см. [docs/keycloak-setup.md](docs/keycloak-setup))
 
 ### Шаг 1: Настройка ВМ 2 (Runtime + Gateway)
 
