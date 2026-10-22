@@ -109,7 +109,7 @@ def delete_container(container_id: str, user: dict = Depends(get_current_user)):
 
     info = json.loads(inspect.stdout)
     labels = (info.get("status", {}).get("labels")
- i             or info.get("info", {}).get("config", {}).get("labels")
+              or info.get("info", {}).get("config", {}).get("labels")
               or {})
     owner = labels.get("owner")
 
